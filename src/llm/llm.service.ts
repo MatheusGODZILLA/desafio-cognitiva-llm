@@ -5,7 +5,13 @@ import { GeminiService } from './providers/gemini/gemini.service';
 export class LlmService {
   constructor(private readonly geminiService: GeminiService) {}
 
-  async generateFromGemini(prompt: string) {
-    return this.geminiService.generateText(prompt);
+  async generateResponses(prompt: string) {
+    const [geminiResponse] = await Promise.all([
+      this.geminiService.generateText(prompt),
+    ]);
+
+    return {
+      gemini: geminiResponse,
+    };
   }
 }
