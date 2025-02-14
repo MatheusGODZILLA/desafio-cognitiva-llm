@@ -13,6 +13,8 @@ export class LlmController {
 
   @Post('generate')
   async generateText(@Body() promptDto: PromptDto) {
-    return this.llmService.generateFromGemini(promptDto.prompt);
+    const responses = await this.llmService.generateResponses(promptDto.prompt);
+
+    return responses;
   }
 }
