@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { GeminiService } from '../providers/gemini/gemini.service';
+import { GeminiService } from './providers/gemini/gemini.service';
 
 @Injectable()
 export class LlmService {
