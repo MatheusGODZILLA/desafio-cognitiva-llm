@@ -1,11 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import { ILlmProvider } from 'src/llm/interfaces/llm-provider.interface';
 import * as dotenv from 'dotenv';
 
 dotenv.config();
 
 @Injectable()
-export class GeminiService {
+export class GeminiService implements ILlmProvider {
   private genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
 
   async generateText(prompt: string) {
