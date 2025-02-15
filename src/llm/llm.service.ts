@@ -12,16 +12,18 @@ export class LlmService {
   ) {}
 
   async generateResponses(prompt: string) {
-    const [geminiResponse, deepseekResponse] = await Promise.all([
-      this.geminiService.generateText(prompt),
-      this.deepseekService.generateText(prompt),
-      this.llamaService.generateText(prompt),
-    ]);
+    const [geminiResponse, deepseekResponse, llamaResponse] = await Promise.all(
+      [
+        this.geminiService.generateText(prompt),
+        this.deepseekService.generateText(prompt),
+        this.llamaService.generateText(prompt),
+      ],
+    );
 
     return {
       gemini: geminiResponse,
       deepseek: deepseekResponse,
-      llama: deepseekResponse,
+      llama: llamaResponse,
     };
   }
 }
