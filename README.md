@@ -85,14 +85,17 @@ export class DeepSeekService implements ILlmProvider {
 
 O mesmo modelo de implementação foi utilizado para o Llama, alterando apenas o valor do modelo no `requestBody`.
 
-## Comparação de Respostas
-A aplicação recebe uma pergunta do usuário e gera respostas utilizando os três modelos mencionados. Em seguida, as respostas são analisadas com base nos seguintes critérios:
-- **Clareza e coerência**
-- **Precisão da informação**
-- **Criatividade ou profundidade da resposta**
-- **Consistência gramatical**
+## Fluxo de Funcionamento
+1. **Recebimento do Prompt:** O usuário insere um prompt que será processado pelos três modelos LLMs configurados.
+2. **Geração das Respostas:** O serviço `LlmService` chama os métodos `generateText` de cada um dos modelos para obter suas respectivas respostas.
+3. **Comparação das Respostas:** Cada resposta é avaliada de acordo com quatro critérios:
+   - Clareza e coerência
+   - Precisão da informação
+   - Criatividade ou profundidade da resposta
+   - Consistência gramatical
+4. **Autoavaliação Assistida por IA:** As respostas são reenviadas aos próprios modelos para que eles atribuam notas aos critérios definidos.
+5. **Determinação da Melhor Resposta:** O serviço calcula a média das notas de cada critério e escolhe a melhor resposta com base na pontuação final.
 
-Além disso, a solução também envia as respostas obtidas para um modelo de IA e solicita que ele as ranqueie, realizando uma autoavaliação assistida por IA.
 
 ## Configuração do Projeto
 ### Instalação das Dependências
@@ -144,4 +147,3 @@ O próximo passo seria aprimorar a análise comparativa das respostas, incorpora
 Caso tenha alguma dúvida sobre a implementação, fique à vontade para entrar em contato!
 
 **Desenvolvido por Matheus da Silva**
-
