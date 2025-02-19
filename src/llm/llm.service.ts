@@ -113,18 +113,19 @@ export class LlmService {
     return { modelName, scores, finalScore };
   }
 
-  private getBestResponse(
-    evaluations: EvaluationResponse[],
-  ): EvaluationResponse {
-    const averageScores = evaluations.map(
-      ({ scores }) =>
-        (scores.clarity +
-          scores.accuracy +
-          scores.creativity +
-          scores.grammar) /
-        4,
-    );
-    const bestIndex = averageScores.indexOf(Math.max(...averageScores));
-    return evaluations[bestIndex];
+  private getBestResponse(evaluations: EvaluationResponse[]): {
+    bestResponse: { modelName: string; finalScore: number };
+    ranking: { modelName: string; finalScore: number }[];
+  } {
+    const sorted = [...evaluations].sort((a, b) => b.finalScore - a.finalScore);
+
+    const ranking = sorted.map(({ modelName, finalScore }) => ({
+      modelName,
+      finalScore,
+    }));
+    return {
+      bestResponse: ranking[0],
+      ranking,
+    };
   }
 }
