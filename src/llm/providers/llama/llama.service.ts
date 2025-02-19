@@ -14,7 +14,7 @@ interface LlamaResponse {
 @Injectable()
 export class LlamaService implements ILlmProvider {
   private readonly apiUrl = 'https://openrouter.ai/api/v1/chat/completions';
-  private readonly apiKey = process.env.OPENROUTER_API_KEY;
+  private readonly apiKey = process.env.OPENROUTER_API_KEY_2;
 
   async generateText(
     prompt: string,

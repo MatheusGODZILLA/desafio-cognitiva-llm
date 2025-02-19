@@ -14,7 +14,7 @@ interface DeepSeekResponse {
 @Injectable()
 export class DeepSeekService implements ILlmProvider {
   private readonly apiUrl = 'https://openrouter.ai/api/v1/chat/completions';
-  private readonly apiKey = process.env.OPENROUTER_API_KEY;
+  private readonly apiKey = process.env.OPENROUTER_API_KEY_1;
 
   async generateText(
     prompt: string,
