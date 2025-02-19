@@ -101,7 +101,7 @@ export class LlmService {
       (acc, { criterion, scores }) => {
         const averageScore =
           scores.reduce((sum, score) => sum + score, 0) / scores.length;
-        return { ...acc, [criterion]: averageScore };
+        return { ...acc, [criterion]: Math.round(averageScore) };
       },
       { clarity: 0, accuracy: 0, creativity: 0, grammar: 0 },
     );
@@ -110,7 +110,7 @@ export class LlmService {
       (scores.clarity + scores.accuracy + scores.creativity + scores.grammar) /
       4;
 
-    return { modelName, scores, finalScore };
+    return { modelName, scores, finalScore: parseFloat(finalScore.toFixed(2)) };
   }
 
   private getBestResponse(evaluations: EvaluationResponse[]): {
