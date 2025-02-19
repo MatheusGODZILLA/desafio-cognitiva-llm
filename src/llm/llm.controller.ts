@@ -15,11 +15,17 @@ interface EvaluationResponseDto {
   scores: ScoresDto;
 }
 
+interface RankingResponseDto {
+  modelName: string;
+  finalScore: number;
+}
+
 interface GenerateTextResponseDto {
   prompt: string;
   responses: Record<string, string>;
   evaluations: EvaluationResponseDto[];
-  bestResponse: EvaluationResponseDto;
+  bestResponse: RankingResponseDto;
+  ranking: RankingResponseDto[];
 }
 
 @ApiTags('llm')
@@ -70,14 +76,16 @@ export class LlmController {
           type: 'object',
           properties: {
             modelName: { type: 'string' },
-            scores: {
-              type: 'object',
-              properties: {
-                clarity: { type: 'number' },
-                accuracy: { type: 'number' },
-                creativity: { type: 'number' },
-                grammar: { type: 'number' },
-              },
+            finalScore: { type: 'number' },
+          },
+        },
+        ranking: {
+          type: 'array',
+          items: {
+            type: 'object',
+            properties: {
+              modelName: { type: 'string' },
+              finalScore: { type: 'number' },
             },
           },
         },
@@ -93,7 +101,8 @@ export class LlmController {
       prompt: promptDto.prompt,
       responses: result.responses,
       evaluations: result.evaluations,
-      bestResponse: result.bestResponse,
+      bestResponse: result.bestResponse.bestResponse,
+      ranking: result.bestResponse.ranking,
     };
   }
 }
