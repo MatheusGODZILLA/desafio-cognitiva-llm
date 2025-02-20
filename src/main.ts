@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import * as http from 'http';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -17,5 +18,8 @@ async function bootstrap() {
 
   app.enableCors();
   await app.listen(process.env.PORT ?? 3000);
+
+  const server = app.getHttpServer() as http.Server;
+  server.setTimeout(180000); // Define o timeout para 3 minutos
 }
 bootstrap();
